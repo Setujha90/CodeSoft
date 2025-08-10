@@ -1,0 +1,1036 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Setu Kumar - Web Developer</title>
+    <style>
+        :root {
+            --bg-primary: rgba(255, 255, 255, 0.95);
+            --bg-secondary: rgba(248, 249, 250, 0.95);
+            --bg-gradient: linear-gradient(135deg, rgba(102, 126, 234, 0.9) 0%, rgba(118, 75, 162, 0.9) 100%);
+            --text-primary: #333333;
+            --text-secondary: #555555;
+            --text-tertiary: #666666;
+            --card-bg: rgba(255, 255, 255, 0.9);
+            --card-bg-alt: linear-gradient(135deg, rgba(245, 247, 250, 0.9), rgba(195, 207, 226, 0.9));
+            --header-bg: rgba(255, 255, 255, 0.95);
+            --header-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+            --border-color: rgba(224, 224, 224, 0.8);
+            --accent-color: #667eea;
+        }
+
+        [data-theme="dark"] {
+            --bg-primary: rgba(26, 26, 26, 0.95);
+            --bg-secondary: rgba(45, 45, 45, 0.95);
+            --bg-gradient: linear-gradient(135deg, rgba(102, 126, 234, 0.9) 0%, rgba(118, 75, 162, 0.9) 100%);
+            --text-primary: #ffffff;
+            --text-secondary: #e0e0e0;
+            --text-tertiary: #cccccc;
+            --card-bg: rgba(45, 45, 45, 0.9);
+            --card-bg-alt: linear-gradient(135deg, rgba(58, 58, 58, 0.9), rgba(74, 74, 74, 0.9));
+            --header-bg: rgba(26, 26, 26, 0.95);
+            --header-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+            --border-color: rgba(64, 64, 64, 0.8);
+            --accent-color: #8fa5ff;
+        }
+
+        @keyframes sunrise {
+            from {
+                transform: rotate(-45deg);
+            }
+            to {
+                transform: rotate(315deg);
+            }
+        }
+        @keyframes moonrise {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(180deg);
+            }
+        }
+        @keyframes dawn {
+            0% {
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            60% {
+                opacity: 0;
+            }
+        }
+        @keyframes noon {
+            0% {
+                opacity: 0;
+            }
+            50% {
+                opacity: 1;
+            }
+            75% {
+                opacity: 0;
+            }
+        }
+        @keyframes dusk {
+            0% {
+                opacity: 0;
+            }
+            50% {
+                opacity: 0;
+            }
+            70% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 0;
+            }
+        }
+        @keyframes midnight {
+            0% {
+                opacity: 1;
+            }
+            25% {
+                opacity: 0;
+            }
+            50% {
+                opacity: 0;
+            }
+            80% {
+                opacity: 1;
+            }
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+        }
+
+        body {
+            --animation-speed: 24s;
+            background-color: rgb(37, 29, 24);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            min-height: 100vh;
+            position: relative;
+        }
+
+        body.pause {
+            --animation-speed: 0;
+        }
+
+        .sky {
+            width: 100vw;
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .sky__phase {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            transition: opacity 0.2s;
+        }
+
+        .sky__dawn {
+            background: linear-gradient(
+                0deg,
+                rgba(254, 215, 102, 1) 0%,
+                rgba(205, 237, 246, 1) 100%
+            );
+            animation: linear dawn infinite var(--animation-speed);
+        }
+
+        .sky__noon {
+            background: linear-gradient(
+                0deg,
+                rgba(205, 237, 246, 1) 0%,
+                rgba(36, 123, 160, 1) 100%
+            );
+            animation: linear noon infinite var(--animation-speed);
+        }
+
+        .sky__dusk {
+            background: linear-gradient(
+                0deg,
+                rgba(255, 32, 110, 1) 0%,
+                rgba(10, 0, 94, 1) 100%
+            );
+            animation: linear dusk infinite var(--animation-speed);
+        }
+
+        .sky__midnight {
+            background: linear-gradient(
+                0deg,
+                rgba(2, 0, 20, 1) 0%,
+                rgba(10, 0, 94, 1) 100%
+            );
+            animation: linear midnight infinite var(--animation-speed);
+        }
+
+        .orbit {
+            position: relative;
+            width: 500px;
+            height: 500px;
+            margin: 200px auto;
+            transform: rotate(-45deg);
+            animation: linear sunrise infinite var(--animation-speed);
+        }
+
+        .sun {
+            position: absolute;
+            top: -40px;
+            left: -40px;
+            width: 80px;
+            height: 80px;
+            background-color: rgb(254, 215, 102);
+            border-radius: 50%;
+            box-shadow: 0 0 14px 14px rgba(254, 215, 102, 0.2);
+        }
+
+        .moon {
+            position: absolute;
+            bottom: -40px;
+            right: -40px;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background-color: #fff;
+            box-shadow: 0 0 7px 7px rgba(255, 255, 255, 0.2);
+        }
+
+        #sky__stars > div {
+            width: 3px;
+            height: 3px;
+            background-color: #fff;
+            border-radius: 50%;
+            position: absolute;
+        }
+
+        #toggle-animation {
+            position: fixed;
+            bottom: 1em;
+            left: 1em;
+            z-index: 1001;
+            text-transform: uppercase;
+            background-color: rgba(2, 0, 20, 0.8);
+            color: #fff;
+            border: 0;
+            padding: 0.5em 1em;
+            letter-spacing: 0.5px;
+            border-radius: 5px;
+            backdrop-filter: blur(10px);
+        }
+
+        #toggle-animation:hover {
+            background-color: rgba(61, 0, 21, 0.9);
+            cursor: pointer;
+        }
+
+        .paused {
+            display: none;
+        }
+
+        .pause .paused {
+            display: block;
+        }
+
+        .pause .playing {
+            display: none;
+        }
+
+        @media (min-width: 768px) {
+            .orbit {
+                width: 700px;
+                height: 700px;
+                margin: 150px auto;
+            }
+        }
+
+        @media (min-width: 940px) {
+            .orbit {
+                width: 800px;
+                height: 800px;
+            }
+        }
+
+        @media (min-width: 1200px) {
+            body {
+                --animation-speed: 28s;
+            }
+            .orbit {
+                width: 1000px;
+                height: 1000px;
+                margin: 200px auto;
+            }
+        }
+
+        @media (min-width: 1500px) {
+            body {
+                --animation-speed: 30s;
+            }
+            .orbit {
+                width: 1300px;
+                height: 1300px;
+            }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        header {
+            background: var(--header-bg);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: var(--header-shadow);
+            transition: all 0.3s ease;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-primary);
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-color);
+            transform: translateY(-2px);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .theme-toggle {
+            background: none;
+            border: 2px solid var(--border-color);
+            border-radius: 50px;
+            padding: 8px 16px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            color: var(--text-primary);
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            border-color: var(--accent-color);
+            transform: scale(1.05);
+        }
+
+        .theme-icon {
+            font-size: 16px;
+        }
+
+        .hero {
+            margin-top: 80px;
+            padding: 100px 0;
+            text-align: center;
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--bg-gradient);
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .hero-content .tagline {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            animation: fadeInUp 1s ease 0.2s both;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 15px 30px;
+            background: white;
+            color: #667eea;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            animation: fadeInUp 1s ease 0.4s both;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .section {
+            padding: 80px 0;
+            background: var(--card-bg);
+            margin: 20px 0;
+            border-radius: 20px;
+            box-shadow: 0 10px 50px rgba(0, 0, 0, 0.1);
+            border: 1px solid var(--border-color);
+            backdrop-filter: blur(10px);
+            position: relative;
+            z-index: 1;
+        }
+
+        .section h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .profile-image {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            padding: 5px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.3s ease;
+        }
+
+        .profile-image:hover {
+            transform: scale(1.05);
+        }
+
+        .profile-image img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            background: var(--bg-secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-tertiary);
+            font-size: 14px;
+        }
+
+        .bio {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--text-secondary);
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .skill-card {
+            background: var(--card-bg-alt);
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            backdrop-filter: blur(10px);
+        }
+
+        .skill-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: left 0.5s;
+        }
+
+        [data-theme="dark"] .skill-card::before {
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.05), transparent);
+        }
+
+        .skill-card:hover::before {
+            left: 100%;
+        }
+
+        .skill-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .skill-card h3 {
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+            font-size: 1.3rem;
+        }
+
+        .skill-card p {
+            color: var(--text-secondary);
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .project-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            border: 1px solid var(--border-color);
+            backdrop-filter: blur(10px);
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+        }
+
+        .project-image {
+            height: 200px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-image::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: all 0.5s ease;
+        }
+
+        .project-card:hover .project-image::after {
+            width: 400px;
+            height: 400px;
+        }
+
+        .project-content {
+            padding: 2rem;
+        }
+
+        .project-content h3 {
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+            font-size: 1.3rem;
+        }
+
+        .project-content p {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        .resume-content {
+            text-align: center;
+        }
+
+        .resume-content p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            color: var(--text-secondary);
+        }
+
+        .download-btn {
+            display: inline-block;
+            padding: 15px 40px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+        }
+
+        .download-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.4);
+        }
+
+        .contact-content {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .contact-content > p {
+            color: var(--text-secondary);
+        }
+
+        .contact-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .contact-item {
+            background: var(--card-bg-alt);
+            padding: 2rem;
+            border-radius: 15px;
+            transition: all 0.3s ease;
+            border: 1px solid var(--border-color);
+            backdrop-filter: blur(10px);
+        }
+
+        .contact-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        }
+
+        .contact-item h3 {
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .contact-item a {
+            color: var(--accent-color);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        footer {
+            background: var(--card-bg);
+            color: var(--text-primary);
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 20px;
+            border-radius: 20px 20px 0 0;
+            border: 1px solid var(--border-color);
+            backdrop-filter: blur(10px);
+            position: relative;
+            z-index: 1;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .nav-right {
+                gap: 1rem;
+            }
+
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .profile-image {
+                width: 250px;
+                height: 250px;
+            }
+
+            .section h2 {
+                font-size: 2rem;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        .section {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease;
+        }
+
+        .section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body data-theme="light">
+    <div class="sky">
+        <div class="sky__phase sky__dawn"></div>
+        <div class="sky__phase sky__noon"></div>
+        <div class="sky__phase sky__dusk"></div>
+        <div class="sky__phase sky__midnight">
+            <div id="sky__stars"></div>
+        </div>
+        <div class="orbit">
+            <div class="sun"></div>
+            <div class="moon"></div>
+        </div>
+    </div>
+
+    <button id="toggle-animation">
+        <span class="playing">Pause</span>
+        <span class="paused">Play</span>
+    </button>
+
+    <header>
+        <nav class="container">
+            <div class="logo">Setu Kumar</div>
+            <div class="nav-right">
+                <ul class="nav-links">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#skills">Skills</a></li>
+                    <li><a href="#projects">Projects</a></li>
+                    <li><a href="#resume">Resume</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+                <button class="theme-toggle" id="themeToggle">
+                    <span class="theme-icon">🌙</span>
+                    <span class="theme-text">Dark</span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section id="home" class="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <h1>Setu Kumar</h1>
+                    <p class="tagline">Full-Stack Developer & Final Year IT Student</p>
+                    <a href="#about" class="cta-button">Learn More About Me</a>
+                </div>
+            </div>
+        </section>
+
+        <div class="container">
+            <section id="about" class="section">
+                <h2>About Me</h2>
+                <div class="about-content">
+                    <div class="profile-image">
+                        <img src="profile.jpg" alt="Setu Kumar" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">
+                    </div>
+                    <div class="bio">
+                        <p>Hello! I'm Setu Kumar, a passionate full-stack web developer and final-year IT student at IEM Kolkata, maintaining a stellar 9.65 YGPA while consistently ranking 1st in my branch. I specialize in building scalable web applications using modern technologies like React.js, Next.js, Node.js, and various databases.</p>
+                        
+                        <p>My journey began with curiosity about how websites work and has evolved into a deep passion for creating impactful tech solutions. I've successfully completed internships, built feature-rich projects like real-time voting platforms and social blogging systems, and solved 650+ coding problems on LeetCode and GeeksforGeeks, demonstrating my strong problem-solving abilities.</p>
+                        
+                        <p>Beyond academics, I bring leadership qualities to the table - from winning Kabaddi tournaments to collaborating effectively in team environments. I'm enthusiastic about contributing to innovative projects that make a difference in the tech world while continuously learning and growing as a developer.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="skills" class="section">
+                <h2>Skills & Expertise</h2>
+                <div class="skills-grid">
+                    <div class="skill-card">
+                        <h3>Frontend Development</h3>
+                        <p>React.js, Next.js, Tailwind CSS, TypeScript, Responsive Design, Modern UI/UX</p>
+                    </div>
+                    <div class="skill-card">
+                        <h3>Backend Development</h3>
+                        <p>Node.js, Express.js, RESTful APIs, JWT Authentication, NextAuth.js, API Security</p>
+                    </div>
+                    <div class="skill-card">
+                        <h3>Database & Tools</h3>
+                        <p>MongoDB, MySQL, PostgreSQL, Git, GitHub, Postman, Cloudinary, Docker</p>
+                    </div>
+                    <div class="skill-card">
+                        <h3>Problem Solving</h3>
+                        <p>Data Structures & Algorithms, 650+ LeetCode Problems, Competitive Programming</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="projects" class="section">
+                <h2>Featured Projects</h2>
+                <div class="projects-grid">
+                    <div class="project-card">
+                        <div class="project-image">Clash - Voting Platform</div>
+                        <div class="project-content">
+                            <h3>Clash – Real-Time Voting Platform</h3>
+                            <p>Interactive live voting web app built with TypeScript, Next.js, and PostgreSQL. Features real-time vote updates, JWT-based authentication with NextAuth.js, and responsive UI with Tailwind CSS.</p>
+                        </div>
+                    </div>
+                    <div class="project-card">
+                        <div class="project-image">BlogApp Platform</div>
+                        <div class="project-content">
+                            <h3>BlogApp - Social Blogging Platform</h3>
+                            <p>Feature-rich blogging platform using Next.js 13+ with App Router. Includes social features like user following, real-time likes/comments, bookmark system, and Cloudinary integration for image management.</p>
+                        </div>
+                    </div>
+                    <div class="project-card">
+                        <div class="project-image">Task Management System</div>
+                        <div class="project-content">
+                            <h3>Task Management System</h3>
+                            <p>Comprehensive MERN stack platform with React.js frontend and Node.js/Express backend. Features secure JWT authentication, role-based access control, and real-time updates with MongoDB integration.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="resume" class="section">
+                <h2>Resume</h2>
+                <div class="resume-content">
+                    <p>Interested in learning more about my professional experience and qualifications?</p>
+                    <a href="Setu_Resume_Backend.pdf" class="download-btn" download>Download Resume (PDF)</a>
+                </div>
+            </section>
+
+            <section id="contact" class="section">
+                <h2>Get In Touch</h2>
+                <div class="contact-content">
+                    <p>I'm always interested in new opportunities and interesting projects. Let's connect!</p>
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <h3>Email</h3>
+                            <a href="mailto:setukrjha9040@gmail.com">setukrjha9040@gmail.com</a>
+                        </div>
+                        <div class="contact-item">
+                            <h3>Phone</h3>
+                            <a href="tel:+918287009496">+91 82870 09496</a>
+                        </div>
+                        <div class="contact-item">
+                            <h3>LinkedIn</h3>
+                            <a href="https://www.linkedin.com/in/setu-kumar-186b1b375/" target="_blank">LinkedIn Profile</a>
+                        </div>
+                        <div class="contact-item">
+                            <h3>GitHub</h3>
+                            <a href="https://github.com/Setujha90" target="_blank">github.com/Setujha90</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+
+    <script>
+        const stars = 40;
+        const skyStars = document.getElementById("sky__stars");
+        const toggleAnimation = document.getElementById("toggle-animation");
+
+        function createStars() {
+            for (let i = 0; i < stars; i++) {
+                let x = Math.floor(Math.random() * 100 + 1);
+                let y = Math.floor(Math.random() * 100 + 1);
+                const starPoint = document.createElement("div");
+                starPoint.style.left = `${x}%`;
+                starPoint.style.top = `${y}%`;
+                skyStars.appendChild(starPoint);
+            }
+        }
+
+        function playAnimation() {
+            if (document.body.classList.contains("pause")) {
+                document.body.classList.remove("pause");
+            } else {
+                document.body.classList.add("pause");
+            }
+        }
+
+        createStars();
+        toggleAnimation.addEventListener("click", playAnimation);
+
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = themeToggle.querySelector('.theme-icon');
+        const themeText = themeToggle.querySelector('.theme-text');
+        const body = document.body;
+
+        const currentTheme = body.getAttribute('data-theme');
+
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = body.getAttribute('data-theme');
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            
+            body.setAttribute('data-theme', newTheme);
+            
+            if (newTheme === 'dark') {
+                themeIcon.textContent = '☀️';
+                themeText.textContent = 'Light';
+            } else {
+                themeIcon.textContent = '🌙';
+                themeText.textContent = 'Dark';
+            }
+        });
+
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.section').forEach(section => {
+            observer.observe(section);
+        });
+
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            const currentTheme = body.getAttribute('data-theme');
+            
+            if (window.scrollY > 100) {
+                if (currentTheme === 'dark') {
+                    header.style.background = 'rgba(26, 26, 26, 0.98)';
+                    header.style.boxShadow = '0 2px 30px rgba(0, 0, 0, 0.4)';
+                } else {
+                    header.style.background = 'rgba(255, 255, 255, 0.98)';
+                    header.style.boxShadow = '0 2px 30px rgba(0, 0, 0, 0.15)';
+                }
+            } else {
+                if (currentTheme === 'dark') {
+                    header.style.background = 'rgba(26, 26, 26, 0.95)';
+                    header.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.3)';
+                } else {
+                    header.style.background = 'rgba(255, 255, 255, 0.95)';
+                    header.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.1)';
+                }
+            }
+        });
+
+        document.querySelectorAll('.skill-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-10px) scale(1.02)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(-10px) scale(1)';
+            });
+        });
+
+        const updateHeaderOnScroll = () => {
+            const header = document.querySelector('header');
+            const currentTheme = body.getAttribute('data-theme');
+            
+            if (window.scrollY > 100) {
+                header.style.background = currentTheme === 'dark' 
+                    ? 'rgba(26, 26, 26, 0.98)' 
+                    : 'rgba(255, 255, 255, 0.98)';
+                header.style.boxShadow = currentTheme === 'dark'
+                    ? '0 2px 30px rgba(0, 0, 0, 0.4)'
+                    : '0 2px 30px rgba(0, 0, 0, 0.15)';
+            }
+        };
+
+        const observer2 = new MutationObserver(updateHeaderOnScroll);
+        observer2.observe(body, { attributes: true, attributeFilter: ['data-theme'] });
+    </script>
+</body>
+</html>
