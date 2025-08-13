@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Setu Kumar - Full Stack Developer Portfolio</title>
+    <style>
+        /* Reset & Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            background-color: #fff;
+            color: #333;
+            scroll-behavior: smooth;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, #1c1c1c 0%, #2d2d2d 100%);
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        header .logo {
+            font-size: 32px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        header .subtitle {
+            font-size: 16px;
+            color: #ccc;
+            margin-bottom: 20px;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 15px;
+        }
+
+        .nav-links li {
+            margin: 8px 20px;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            padding: 8px 12px;
+            border-radius: 5px;
+        }
+
+        .nav-links a:hover {
+            color: #007bff;
+            background-color: rgba(255,255,255,0.1);
+            transform: translateY(-2px);
+        }
+
+        /* Sections */
+        .section {
+            padding: 80px 10%;
+            margin-top: 140px;
+        }
+
+        .section-title {
+            font-size: 36px;
+            margin-bottom: 30px;
+            color: #1c1c1c;
+            border-left: 6px solid #007bff;
+            padding-left: 15px;
+            font-weight: 700;
+        }
+
+        /* Hero */
+        .hero {
+            display: flex;
+            flex-wrap: wrap;
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            padding: 180px 10% 100px;
+            align-items: center;
+            justify-content: space-between;
+            min-height: 100vh;
+        }
+
+        .hero-text {
+            flex: 1 1 55%;
+            padding-right: 40px;
+        }
+
+        .hero-text h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            font-weight: 700;
+            background: linear-gradient(45deg, #007bff, #28a745);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-text .role {
+            font-size: 24px;
+            color: #007bff;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .hero-text p {
+            font-size: 18px;
+            margin-bottom: 30px;
+            line-height: 1.7;
+            color: #ecf0f1;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 15px 30px;
+            background: linear-gradient(45deg, #007bff, #0056b3);
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,123,255,0.3);
+            margin-right: 15px;
+            margin-bottom: 10px;
+        }
+
+        .btn:hover {
+            background: linear-gradient(45deg, #0056b3, #003d82);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0,123,255,0.4);
+        }
+
+        .btn.secondary {
+            background: transparent;
+            border: 2px solid #007bff;
+            color: #007bff;
+        }
+
+        .btn.secondary:hover {
+            background: #007bff;
+            color: white;
+        }
+
+        .hero-image {
+            flex: 1 1 40%;
+            text-align: center;
+        }
+
+        .hero-image img {
+            max-width: 350px;
+            width: 100%;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+            transition: transform 0.3s ease;
+        }
+
+        .hero-image img:hover {
+            transform: scale(1.05);
+        }
+
+        /* About */
+        .about {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 50px;
+            background-color: #f8f9fa;
+            align-items: center;
+            padding: 80px 10%;
+        }
+
+        .about-image {
+            flex: 1 1 35%;
+        }
+
+        .about-image img {
+            max-width: 100%;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        .about-text {
+            flex: 1 1 60%;
+        }
+
+        .about-text p {
+            margin: 15px 0;
+            font-size: 16px;
+            color: #555;
+            line-height: 1.7;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .stat-number {
+            font-size: 28px;
+            font-weight: bold;
+            color: #007bff;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            color: #666;
+            margin-top: 5px;
+        }
+
+        /* Cards for Skills, Services, Works */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .card {
+            background: linear-gradient(145deg, #ffffff 0%, #f8f9fa 100%);
+            padding: 30px 25px;
+            border-radius: 15px;
+            text-align: center;
+            font-weight: 600;
+            font-size: 18px;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            border: 1px solid #e9ecef;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            background: linear-gradient(145deg, #007bff 0%, #0056b3 100%);
+            color: white;
+            box-shadow: 0 15px 35px rgba(0,123,255,0.3);
+        }
+
+        /* Project Cards */
+        .project-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            border-left: 4px solid #007bff;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+
+        .project-title {
+            font-size: 20px;
+            font-weight: bold;
+            color: #1c1c1c;
+            margin-bottom: 10px;
+        }
+
+        .project-tech {
+            color: #007bff;
+            font-size: 14px;
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+
+        .project-description {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        /* Timeline (Experience) */
+        .timeline {
+            list-style: none;
+            padding-left: 30px;
+            position: relative;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 15px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: #007bff;
+        }
+
+        .timeline li {
+            margin: 25px 0;
+            position: relative;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .timeline li::before {
+            content: "";
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #007bff;
+            position: absolute;
+            left: -26px;
+            top: 25px;
+            border: 3px solid white;
+            box-shadow: 0 0 0 3px #007bff;
+        }
+
+        /* Contact Info */
+        .contact-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .contact-item {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .contact-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .contact-item .icon {
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: #007bff;
+        }
+
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero {
+                flex-direction: column;
+                text-align: center;
+                padding: 180px 5% 60px;
+            }
+
+            .hero-text {
+                padding-right: 0;
+                margin-bottom: 30px;
+            }
+
+            .hero-text h1 {
+                font-size: 36px;
+            }
+
+            .about {
+                flex-direction: column;
+                text-align: center;
+                padding: 60px 5%;
+            }
+
+            .section {
+                padding: 60px 5%;
+            }
+
+            .nav-links {
+                flex-direction: column;
+            }
+
+            .nav-links li {
+                margin: 5px 0;
+            }
+
+            header {
+                padding: 15px 0;
+            }
+
+            header .logo {
+                font-size: 24px;
+            }
+
+            header .subtitle {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="logo">Setu Kumar</div>
+            <p class="subtitle">Full-Stack Developer </p>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">About Me</a></li>
+                    <li><a href="#skills">Skills</a></li>
+                    <li><a href="#projects">Projects</a></li>
+                    <li><a href="#experience">Experience</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section id="home" class="hero">
+            <div class="hero-text">
+                <h1>Setu Kumar</h1>
+                <p class="role">Full-Stack Developer & B.Tech IT Student</p>
+                <p>
+                    Passionate software developer enthusiastic about building scalable web apps, solving algorithmic challenges,
+                    and contributing to impactful tech products. Currently pursuing B.Tech in Information Technology with a 9.65 YGPA.
+                </p>
+                <a href="#contact" class="btn">Hire Me</a>
+                <a href="#projects" class="btn secondary">View My Work</a>
+            </div>
+            <div class="hero-image">
+                <img src="setu-profile.jpg" alt="Profile Image" />
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="about">
+            <div class="about-image">
+                <img src="setu-profile.jpg" alt="About Image" />
+            </div>
+            <div class="about-text">
+                <h2>ABOUT ME</h2>
+                <p>
+                    I am a passionate Full-Stack Developer with a strong background in Information Technology, currently pursuing my B.Tech degree at IEM Kolkata. I blend creativity with technical expertise to build responsive, scalable, and user-friendly web applications.
+                </p>
+                <p>
+                    I enjoy working across the full web stack—from crafting modern frontend interfaces using React.js and Next.js to building powerful backend systems with Node.js and Express.js. My expertise spans across MongoDB, PostgreSQL, and MySQL databases, ensuring optimal data management solutions.
+                </p>
+                
+                <div class="stats">
+                    <div class="stat-item">
+                        <div class="stat-number">9.65</div>
+                        <div class="stat-label">YGPA</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">650+</div>
+                        <div class="stat-label">Problems Solved</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">5+</div>
+                        <div class="stat-label">Projects Built</div>
+                    </div>
+                </div>
+                
+                <a href="Setu_Resume_Backend.pdf" class="btn" download>Download Resume</a>
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section id="skills" class="section">
+            <h2 class="section-title">Technical Skills</h2>
+            <div class="card-grid">
+                <div class="card">
+                    <strong>Frontend</strong><br>
+                    React.js, Next.js, Tailwind CSS
+                </div>
+                <div class="card">
+                    <strong>Backend</strong><br>
+                    Node.js, Express.js, RESTful APIs
+                </div>
+                <div class="card">
+                    <strong>Database</strong><br>
+                    MongoDB, MySQL, PostgreSQL
+                </div>
+                <div class="card">
+                    <strong>Authentication</strong><br>
+                    JWT, NextAuth.js, bcrypt
+                </div>
+                <div class="card">
+                    <strong>Tools & Others</strong><br>
+                    Git, GitHub, Postman, Docker
+                </div>
+                <div class="card">
+                    <strong>Cloud Services</strong><br>
+                    Cloudinary, API Integrations
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects" class="section">
+            <h2 class="section-title">Featured Projects</h2>
+            <div class="card-grid">
+                <div class="project-card">
+                    <h3 class="project-title">Clash - Real-Time Voting Platform</h3>
+                    <p class="project-tech">TypeScript • Next.js • PostgreSQL • NextAuth.js</p>
+                    <p class="project-description">
+                        Developed a full-stack voting app with real-time vote updates, comments, background job handling, JWT-based authentication with email verification, and responsive UI using Tailwind CSS.
+                    </p>
+                    <a href="https://github.com/Setujha90/Clash" class="btn">View on GitHub</a>
+                </div>
+                
+                <div class="project-card">
+                    <h3 class="project-title">Task Management System</h3>
+                    <p class="project-tech">React.js • Node.js • Express • MongoDB • JWT</p>
+                    <p class="project-description">
+                        Built comprehensive task management platform with secure JWT authentication, role-based access control, responsive UI with Tailwind CSS, and real-time updates for project organization.
+                    </p>
+                    <a href="https://github.com/Setujha90/Task-Manager" class="btn">View on GitHub</a>
+                </div>
+                
+                <div class="project-card">
+                    <h3 class="project-title">BlogApp - Social Blogging Platform</h3>
+                    <p class="project-tech">Next.js 13+ • Node.js • Cloudinary • MongoDB</p>
+                    <p class="project-description">
+                        Feature-rich blogging platform with user following, real-time likes/comments, bookmark system, content management with draft/publish workflow, and integrated image management.
+                    </p>
+                    <a href="https://github.com/Setujha90/BlogApp" class="btn">View on GitHub</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Experience Section -->
+        <section id="experience" class="section">
+            <h2 class="section-title">Experience & Education</h2>
+            <ul class="timeline">
+                <li>
+                    <strong>Web Development Intern</strong> - AI Wallah (Remote)<br>
+                    <small>July 2025 – August 2025</small>
+                    <p>Developed and integrated a website-specific chatbot capable of answering user queries by leveraging training data extracted from the website's content. Worked on backend API integrations and implemented authentication and content management features.</p>
+                </li>
+                <li>
+                    <strong>B.Tech in Information Technology</strong> - IEM Kolkata<br>
+                    <small>August 2022 – 2026 | YGPA: 9.65</small>
+                    <p>Consistently ranked 1st in IT Branch. Active in sports - won Kabaddi Tournament in 1st year and led team to finals in 3rd year.</p>
+                </li>
+                <li>
+                    <strong>Higher Secondary (12th)</strong> - MB International, Kota<br>
+                    <small>April 2020 – March 2021 | 89.6%</small>
+                </li>
+                <li>
+                    <strong>Secondary School (10th)</strong> - Kendriya Vidyalaya, Bihta<br>
+                    <small>April 2018 – March 2019 | 94.2%</small>
+                </li>
+            </ul>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="section">
+            <h2 class="section-title">Get In Touch</h2>
+            <p style="text-align: center; font-size: 18px; margin-bottom: 40px;">
+                Let's collaborate! I'm always excited to work on innovative projects and solve challenging problems.
+            </p>
+            <div class="contact-info">
+                <div class="contact-item">
+                    <div class="icon">📧</div>
+                    <h4>Email</h4>
+                    <p>setukrjha9040@gmail.com</p>
+                </div>
+                <div class="contact-item">
+                    <div class="icon">📱</div>
+                    <h4>Phone</h4>
+                    <p>+91 8287009496</p>
+                </div>
+                <div class="contact-item">
+                    <div class="icon">🌐</div>
+                    <h4>GitHub</h4>
+                    <p>github.com/Setujha90</p>
+                </div>
+                <div class="contact-item">
+                    <div class="icon">💼</div>
+                    <h4>LinkedIn</h4>
+                    <p>www.linkedin.com/in/setu-kumar-186b1b375/</p>
+                </div>
+                <div class="contact-item">
+                    <div class="icon">📍</div>
+                    <h4>Location</h4>
+                    <p>Kolkata, West Bengal, India</p>
+                </div>
+                <div class="contact-item">
+                    <div class="icon">⚡</div>
+                    <h4>LeetCode</h4>
+                    <p>650+ Problems Solved</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+</body>
+</html>
